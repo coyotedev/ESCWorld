@@ -5,7 +5,7 @@
 #include <typeindex>
 #include <unordered_map>
 
-#include "ComponentBase.h"
+#include "Interfaces/IComponent.h"
 
 class Entity
 {
@@ -18,9 +18,9 @@ public:
 
     template<
             typename Component,
-            typename std::enable_if<std::is_base_of<ComponentBase, Component>::value>::type* = nullptr
+            typename std::enable_if<std::is_base_of<IComponent, Component>::value>::type* = nullptr
             >
-    std::shared_ptr<ComponentBase> get()
+    const std::shared_ptr<IComponent> get()
     {
         return m_components[std::type_index(typeid(Component))];
     }
@@ -28,7 +28,7 @@ public:
     template<
             typename Component,
             typename... ComponentArgs,
-            typename std::enable_if<std::is_base_of<ComponentBase, Component>::value>::type* = nullptr
+            typename std::enable_if<std::is_base_of<IComponent, Component>::value>::type* = nullptr
             >
     void add(ComponentArgs&&... args)
     {
@@ -39,6 +39,6 @@ public:
     void setActive(bool isActive);
 
 private:
-    std::unordered_map<std::type_index, std::shared_ptr<ComponentBase>> m_components;
+    std::unordered_map<std::type_index, const std::shared_ptr<IComponent>> m_components;
     bool m_isActive;
 };

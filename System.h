@@ -18,13 +18,19 @@ public:
 
         for (auto it : activeEntities)
         {
-            bool ok = true;
-            for (const auto& itFilter : m_filters)
+            const auto passed = [this, it]()
             {
-                ok &= itFilter->evaluate(*it.get());
-            }
+                for (const auto& itFilter : m_filters)
+                {
+                    if (not itFilter->evaluate(*it.get()))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }();
 
-            if (ok)
+            if (passed)
             {
                 ret.push_back(it);
             }

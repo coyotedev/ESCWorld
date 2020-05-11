@@ -8,7 +8,7 @@ class ExpressionAllOf : public ExpressionBase<Operands...>
 public:
     ExpressionAllOf() = default;
     virtual ~ExpressionAllOf() = default;
-    virtual bool getFormationValue() override
+    virtual bool getFormationValue() const override
     {
         return true;
     }
@@ -26,7 +26,7 @@ class ExpressionOneOf : public ExpressionBase<Operands...>
 public:
     ExpressionOneOf() = default;
     virtual ~ExpressionOneOf() = default;
-    virtual bool getFormationValue() override
+    virtual bool getFormationValue() const override
     {
         return false;
     }
@@ -44,7 +44,7 @@ class ExpressionNoneOf : public ExpressionBase<Operands...>
 public:
     ExpressionNoneOf() = default;
     virtual ~ExpressionNoneOf() = default;
-    virtual bool getFormationValue() override
+    virtual bool getFormationValue() const override
     {
         return true;
     }

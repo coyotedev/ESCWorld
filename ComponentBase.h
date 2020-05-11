@@ -2,7 +2,9 @@
 
 #include <string>
 
-class ComponentBase
+#include "Interfaces/IComponent.h"
+
+class ComponentBase : public IComponent
 {
 public:
     std::string getId();

@@ -13,7 +13,7 @@ public:
     ExpressionBase() = default;
     virtual ~ExpressionBase() override = default;
 
-    virtual bool evaluate(Entity& component) override final
+    virtual bool evaluate(Entity& component) const override final
     {
         return tupleTreat<std::tuple_size<std::tuple<Operands...>>::value>(component, getFormationValue());
     }
@@ -30,7 +30,7 @@ private:
             size_t N,
             typename std::enable_if<(N > 1)>::type* = nullptr
             >
-    bool tupleTreat(Entity& entity, bool prev)
+    bool tupleTreat(Entity& entity, bool prev) const
     {
         return tupleTreat<N - 1>(entity, evaluate(prev, entity.get<TypeBy<N - 1>>() != nullptr));
     }
@@ -39,7 +39,7 @@ private:
             size_t N,
             typename std::enable_if<(N == 1)>::type* = nullptr
             >
-    bool tupleTreat(Entity& entity, bool prev)
+    bool tupleTreat(Entity& entity, bool prev) const
     {
         return evaluate(prev, entity.get<TypeBy<N - 1>>() != nullptr);
     }
