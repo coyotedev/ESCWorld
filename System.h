@@ -50,7 +50,7 @@ public:
     }
 
 protected:
-    System(std::shared_ptr<World> p_World)
+	System(World* p_World)
         : mp_world(p_World)
         , m_isActive(true)
     {
@@ -86,7 +86,7 @@ private:
         m_filters.push_back(std::unique_ptr<TypeBy<N>>(new TypeBy<N>));
     }
 
-    std::shared_ptr<World> mp_world;
+	World* mp_world;
     std::vector<std::unique_ptr<IExpression>> m_filters;
     bool m_isActive;
 };

@@ -32,7 +32,7 @@ public:
             >
     void add(ComponentArgs&&... args)
     {
-        m_components.emplace(std::type_index(typeid(Component)), std::make_shared<Component>(std::forward<ComponentArgs...>(args...)));
+		m_components.emplace(std::type_index(typeid(Component)), std::make_shared<Component>(std::forward<ComponentArgs>(args)...));
     }
 
     bool isActive();
