@@ -1,8 +1,12 @@
 #pragma once
 
+#include "../Entity.h"
+
 class IEvent
 {
+protected:
+	IEvent() = default;
 public:
-    IEvent() = default;
-    virtual ~IEvent() = 0;
+	virtual ~IEvent() = default;
+	virtual Entity* getEntity() = 0;
 };

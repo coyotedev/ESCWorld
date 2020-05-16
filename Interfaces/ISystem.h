@@ -5,6 +5,7 @@
 
 class Entity;
 class IEvent;
+class World;
 
 class ISystem
 {
@@ -17,4 +18,5 @@ public:
     virtual void update() = 0;
     virtual void setActive(bool) = 0;
     virtual bool isActive() = 0;
+	virtual World* getWorld() = 0;
 };

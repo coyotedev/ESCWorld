@@ -35,10 +35,14 @@ public:
 		m_components.emplace(std::type_index(typeid(Component)), std::make_shared<Component>(std::forward<ComponentArgs>(args)...));
     }
 
-    bool isActive();
+	bool isActive() const;
     void setActive(bool isActive);
+
+	bool isMarkedToDestroy() const;
+	void destroy();
 
 private:
     std::unordered_map<std::type_index, const std::shared_ptr<IComponent>> m_components;
     bool m_isActive;
+	bool m_markedToDestroy;
 };

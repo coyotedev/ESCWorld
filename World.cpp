@@ -1,5 +1,7 @@
 #include "World.h"
 
+#include <algorithm>
+
 #include "Entity.h"
 #include "Interfaces/ISystem.h"
 #include "Interfaces/IEvent.h"
@@ -47,4 +49,12 @@ void World::update()
             it->update();
         }
     }
+
+	m_entities.erase
+			(
+				std::remove_if(m_entities.begin(), m_entities.end(), [](const std::shared_ptr<Entity>& entity){
+					return entity->isMarkedToDestroy();
+				})
+				, m_entities.end()
+			);
 }

@@ -50,11 +50,16 @@ public:
     }
 
 protected:
-	System(World* p_World)
+    System(World* p_World)
         : mp_world(p_World)
         , m_isActive(true)
     {
         CollectFilters<std::tuple_size<std::tuple<Expressions...>>::value>();
+    }
+
+    virtual World* getWorld() override final
+    {
+	return mp_world;
     }
 
 private:
@@ -86,7 +91,7 @@ private:
         m_filters.push_back(std::unique_ptr<TypeBy<N>>(new TypeBy<N>));
     }
 
-	World* mp_world;
+    World* mp_world;
     std::vector<std::unique_ptr<IExpression>> m_filters;
     bool m_isActive;
 };
