@@ -5,6 +5,7 @@
 
 #include "Interfaces/ISystem.h"
 #include "Interfaces/IExpression.h"
+#include "Interfaces/IEvent.h"
 #include "World.h"
 
 template<typename... Expressions>
@@ -49,6 +50,18 @@ public:
         return m_isActive;
     }
 
+	virtual void handleEvent(std::shared_ptr<IEvent> e) override final
+	{
+		for (const auto& it : m_filters)
+		{
+			if (!it->evaluate(*e->getEntity()))
+			{
+				return;
+			}
+		}
+		handleEventImpl(e);
+	}
+
 protected:
     System(World* p_World)
         : mp_world(p_World)
@@ -61,6 +74,8 @@ protected:
     {
 	return mp_world;
     }
+
+	virtual void handleEventImpl(std::shared_ptr<IEvent>) = 0;
 
 private:
     template<size_t N>
